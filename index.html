@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Segurança do Trabalho - Nissan</title>
+    
+    <!-- Fonte Montserrat e Ícones FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;0,900;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #1e1e24;
+            --panel-bg: #2b2b36;
+            --text-light: #ffffff;
+            --border-color: #4a4a5a;
+            --cyan-border: #00d2ff;
+            --green-border: #00ff87;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif; /* Fonte nova aplicada a tudo */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- CABEÇALHO --- */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: var(--panel-bg); padding: 15px 25px;
+            border-radius: 10px; border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 20px; }
+
+        .logo-nissan {
+            width: 60px; height: 60px;
+            border: 2px solid white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 10px; letter-spacing: 1px;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .title-section h1 { font-size: 20px; margin-bottom: 5px; font-weight: 800; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .title-section p { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; }
+
+        .header-right { display: flex; gap: 15px; }
+
+        .filter-box {
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 15px; border-radius: 5px;
+            display: flex; align-items: center; gap: 10px;
+            min-width: 150px; background: rgba(0,0,0,0.1); color: white;
+            transition: all 0.3s;
+        }
+        .filter-box:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+        /* --- ÁREA SUPERIOR --- */
+        .top-container { display: flex; justify-content: space-between; gap: 15px; }
+
+        .safety-banner {
+            flex: 1; background: linear-gradient(to right, #111, #1a1a24);
+            padding: 15px 20px; border-radius: 10px;
+            border-left: 4px solid var(--green-border);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .safety-banner .main-text { font-size: 14px; margin-bottom: 5px; }
+        .safety-banner .sub-text { color: #aaa; font-weight: 400; font-size: 12px; }
+        .safety-banner .zero-acidente { 
+            color: var(--green-border); font-weight: 900; 
+            font-style: italic; font-size: 16px; text-align: right; line-height: 1.2;
+            text-shadow: 0 0 5px rgba(0, 255, 135, 0.4);
+        }
+
+        .kpi-wrapper { display: flex; gap: 15px; }
+
+        .kpi-card {
+            background-color: var(--panel-bg); padding: 15px 20px; border-radius: 10px;
+            display: flex; align-items: center; gap: 15px; min-width: 250px;
+            border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .kpi-card h3 { font-size: 14px; font-weight: 600; color: #eee; }
+        .kpi-card .value { font-size: 24px; font-weight: 800; margin-left: auto; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+        .border-cyan { border-left: 4px solid var(--cyan-border); }
+        .border-white { border-left: 4px solid white; }
+        .border-green { border-left: 4px solid var(--green-border); }
+
+        .icon-cyan { color: var(--cyan-border); font-size: 24px; }
+        .icon-white { color: white; font-size: 24px; }
+        .icon-green { color: var(--green-border); font-size: 24px; }
+
+        /* --- MAIN CONTENT --- */
+        .main-content { display: flex; gap: 15px; flex: 1; min-height: 0; }
+
+        .panel {
+            background-color: var(--panel-bg); border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 15px; display: flex; flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .panel-title {
+            font-size: 16px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+            text-transform: uppercase; font-weight: 800; color: #ddd; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* --- PIRÂMIDE --- */
+        .pyramid-section { flex: 0 0 35%; justify-content: flex-start; }
+
+        .pyramid-container {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 2px; flex: 1; position: relative;
+            width: 80%; /* Diminui a largura geral da pirâmide */
+            margin: 0 auto; /* Centraliza a pirâmide na div */
+        }
+
+        .pyramid-level {
+            height: 30px; /* Diminui a altura para deixá-la mais estreita verticalmente */
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            color: white; font-size: 11px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            transition: all 0.3s ease; cursor: default; position: relative; z-index: 1;
+        }
+
+        .pyramid-level:hover { transform: scale(1.05); filter: brightness(1.2); z-index: 10; }
+
+        .level-text { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+        .lvl-code { font-weight: 800; font-size: 11px; letter-spacing: 0.5px; }
+        .lvl-desc { font-weight: 600; font-size: 8px; opacity: 0.9; text-transform: uppercase; }
+
+        .lvl-1 { background: linear-gradient(90deg, #111 0%, #444 50%, #111 100%); width: 20%; clip-path: polygon(25% 0, 75% 0, 100% 100%, 0% 100%); }
+        .lvl-2 { background: linear-gradient(90deg, #222 0%, #555 50%, #222 100%); width: 30%; clip-path: polygon(18% 0, 82% 0, 100% 100%, 0% 100%); }
+        .lvl-3 { background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%); width: 40%; clip-path: polygon(14% 0, 86% 0, 100% 100%, 0% 100%); }
+        .lvl-4 { background: linear-gradient(90deg, #900 0%, #f00 50%, #900 100%); width: 50%; clip-path: polygon(11% 0, 89% 0, 100% 100%, 0% 100%); }
+        .lvl-5 { background: linear-gradient(90deg, #b50 0%, #f90 50%, #b50 100%); width: 60%; clip-path: polygon(9% 0, 91% 0, 100% 100%, 0% 100%); }
+        .lvl-6 { background: linear-gradient(90deg, #a90 0%, #fe0 50%, #a90 100%); width: 70%; clip-path: polygon(8% 0, 92% 0, 100% 100%, 0% 100%); color: #000; text-shadow: rgba(255,255,255,0.5) 0px 1px 1px; }
+        .lvl-7 { background: linear-gradient(90deg, #059 0%, #0bf 50%, #059 100%); width: 80%; clip-path: polygon(7% 0, 93% 0, 100% 100%, 0% 100%); }
+        .lvl-8 { background: linear-gradient(90deg, #077 0%, #0ff 50%, #077 100%); width: 90%; clip-path: polygon(6% 0, 94% 0, 100% 100%, 0% 100%); color: #000; text-shadow: rgba(255,255,255,0.5) 0px 1px 1px; }
+        .lvl-9 { background: linear-gradient(90deg, #171 0%, #3d3 50%, #171 100%); width: 100%; clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%); color: #000; text-shadow: rgba(255,255,255,0.5) 0px 1px 1px; }
+        .lvl-10{ background: linear-gradient(90deg, #040 0%, #090 50%, #040 100%); width: 100%; clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%); border-radius: 0 0 5px 5px;}
+
+        /* --- TABELA --- */
+        .table-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+        table { 
+            width: 100%; 
+            height: 100%; /* Força a tabela a esticar no eixo Y */
+            border-collapse: collapse; font-size: 12px; text-align: center; 
+        }
+        
+        th, td { border: 1px solid rgba(255,255,255,0.1); padding: 5px; } /* Ajuste no padding para caber bem */
+        
+        /* O cabeçalho não deve se esticar muito */
+        th { background-color: #353544; font-weight: 600; color: #ddd; height: 1%; }
+        th i { display: block; margin-bottom: 5px; font-size: 16px; opacity: 0.8; }
+        .th-small { font-size: 9px; color: #999; display: block; margin-top: 2px; font-weight: 400; }
+
+        .area-col {
+            text-align: left; padding-left: 15px; font-weight: 800;
+            display: flex; align-items: center; gap: 10px; border-left: none; height: 100%;
+            border-bottom: none;
+        }
+
+        tbody tr { transition: background-color 0.2s; }
+        tbody tr:hover { background-color: rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-nissan">NISSAN</div>
+            <i class="fa-solid fa-user-shield" style="font-size: 30px; color: #ccc;"></i>
+            <div class="title-section">
+                <h1>DASHBOARD DE SEGURANÇA DO TRABALHO</h1>
+                <p>PIRÂMIDE / KAIZEN POR ÁREA</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="filter-box">
+                <i class="fa-solid fa-industry"></i>
+                <select style="background:transparent; border:none; color:white; outline:none; width: 100%; cursor:pointer; font-family:'Montserrat', sans-serif;">
+                    <option style="color:black;">Área (Todas)</option>
+                </select>
+            </div>
+            <div class="filter-box">
+                <i class="fa-regular fa-calendar"></i>
+                <select style="background:transparent; border:none; color:white; outline:none; width: 100%; cursor:pointer; font-family:'Montserrat', sans-serif;">
+                    <option style="color:black;">Mês (Atual)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- ÁREA SUPERIOR (Mensagem + KPIs) -->
+    <div class="top-container">
+        <div class="safety-banner">
+            <div>
+                <div class="main-text">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--cyan-border); margin-right: 5px;"></i> 
+                    <strong>Segurança é nosso valor e responsabilidade de todos!</strong>
+                </div>
+                <div class="sub-text">A prevenção do acidente é o melhor caminho!</div>
+            </div>
+            <span class="zero-acidente">ZERO ACIDENTE,<br>VAMOS!</span>
+        </div>
+
+        <div class="kpi-wrapper">
+            <div class="kpi-card border-cyan">
+                <i class="fa-solid fa-triangle-exclamation icon-cyan"></i>
+                <h3>Total de Ocorrências</h3>
+                <span class="value" id="kpi-ocorrencias">0</span>
+            </div>
+            <div class="kpi-card border-white">
+                <i class="fa-regular fa-calendar-check icon-white"></i>
+                <h3>Dias sem Acidentes</h3>
+                <span class="value" id="kpi-dias">0</span>
+            </div>
+            <div class="kpi-card border-green">
+                <i class="fa-solid fa-hands-holding-circle icon-green"></i>
+                <h3>Kaizens Implantados</h3>
+                <span class="value" id="kpi-kaizens">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- PIRÂMIDE -->
+        <div class="panel pyramid-section">
+            <div class="panel-title">
+                <i class="fa-solid fa-triangle-exclamation" style="color:var(--cyan-border);"></i> PIRÂMIDE DE SEGURANÇA
+            </div>
+            <div class="pyramid-container">
+                <div class="pyramid-level lvl-1"><i class="fa-solid fa-skull"></i> <div class="level-text"><span class="lvl-code">FATAL</span></div></div>
+                <div class="pyramid-level lvl-2"><div class="level-text"><span class="lvl-code">U</span><span class="lvl-desc">Com sequelas</span></div></div>
+                <div class="pyramid-level lvl-3"><div class="level-text"><span class="lvl-code">R</span><span class="lvl-desc">Sem sequelas</span></div></div>
+                <div class="pyramid-level lvl-4"><div class="level-text"><span class="lvl-code">FR1</span><span class="lvl-desc">Acidente típico</span></div></div>
+                <div class="pyramid-level lvl-5"><div class="level-text"><span class="lvl-code">FR0</span><span class="lvl-desc">Primeiros socorros</span></div></div>
+                <div class="pyramid-level lvl-6"><i class="fa-solid fa-stethoscope"></i> <div class="level-text"><span class="lvl-code">ATEND. AMBULATORIAL</span></div></div>
+                <div class="pyramid-level lvl-7"><i class="fa-solid fa-bell"></i> <div class="level-text"><span class="lvl-code">INCIDENTE / PSIF</span></div></div>
+                <div class="pyramid-level lvl-8"><i class="fa-solid fa-triangle-exclamation"></i> <div class="level-text"><span class="lvl-code">NEAR MISS / PSIF</span></div></div>
+                <div class="pyramid-level lvl-9"><i class="fa-solid fa-gear"></i> <div class="level-text"><span class="lvl-code">CONDIÇÕES INSEGURAS</span></div></div>
+                <div class="pyramid-level lvl-10"><i class="fa-solid fa-user-xmark"></i> <div class="level-text"><span class="lvl-code">COMPORTAMENTOS INSEGUROS</span></div></div>
+            </div>
+        </div>
+
+        <!-- TABELA -->
+        <div class="panel table-section">
+            <div class="panel-title">
+                <i class="fa-solid fa-chart-simple" style="color:var(--green-border);"></i> Comparação por área do mês
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: left; padding-left: 15px;">Área</th>
+                        <th><i class="fa-solid fa-skull"></i> Fatal</th>
+                        <th><i class="fa-solid fa-triangle-exclamation"></i> U <span class="th-small">com sequelas</span></th>
+                        <th><i class="fa-solid fa-triangle-exclamation"></i> R <span class="th-small">Sem sequelas</span></th>
+                        <th><i class="fa-solid fa-triangle-exclamation"></i> Fr1 <span class="th-small">ACIDENTE TÍPICO</span></th>
+                        <th><i class="fa-solid fa-triangle-exclamation"></i> Fr0 <span class="th-small">PRIMEIROS SOCORROS</span></th>
+                        <th><i class="fa-solid fa-triangle-exclamation"></i> Psif</th>
+                        <th><i class="fa-solid fa-certificate"></i> Near Miss</th>
+                        <th><i class="fa-solid fa-triangle-exclamation"></i> Condição<br>Insegura</th>
+                        <th><i class="fa-solid fa-user"></i> Comport.<br>Inseguro</th>
+                        <th><i class="fa-solid fa-leaf" style="color:var(--green-border);"></i> Meta<br>kaizen</th>
+                        <th><i class="fa-solid fa-leaf" style="color:var(--green-border);"></i> Real.<br>kaizen</th>
+                        <th style="color: var(--cyan-border);">Nissan</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-corpo">
+                    <!-- Linhas geradas via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function randomValue() { return Math.floor(Math.random() * 50) + 1; }
+
+        document.getElementById('kpi-ocorrencias').innerText = randomValue();
+        document.getElementById('kpi-dias').innerText = randomValue();
+        document.getElementById('kpi-kaizens').innerText = randomValue();
+
+        const areas = [
+            { name: "Stamp", icon: "fa-stamp" },
+            { name: "Body", icon: "fa-car-side" },
+            { name: "Trim & Chassis", icon: "fa-wrench" },
+            { name: "Paint", icon: "fa-spray-can" },
+            { name: "Plastic", icon: "fa-prescription-bottle" },
+            { name: "Powertrain", icon: "fa-gear" },
+            { name: "Engenharia", icon: "fa-laptop-code" },
+            { name: "Logística", icon: "fa-truck" },
+            { name: "Maint. Utility", icon: "fa-screwdriver-wrench" }
+        ];
+
+        const tbody = document.getElementById('tabela-corpo');
+        
+        areas.forEach(area => {
+            const cols = {
+                fatal: randomValue(), u: randomValue(), r: randomValue(),
+                fr1: randomValue(), fr0: randomValue(), psif: randomValue(),
+                nearMiss: randomValue(), cond: randomValue(), comp: randomValue(),
+                metaK: randomValue(), realK: randomValue()
+            };
+
+            const totalLinha = cols.fatal + cols.u + cols.r + cols.fr1 + cols.fr0 + cols.psif + cols.nearMiss + cols.cond + cols.comp;
+            
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="area-col"><i class="fa-solid ${area.icon}" style="color:#aaa; width: 20px;"></i> ${area.name}</td>
+                <td style="font-weight:600;">${cols.fatal}</td>
+                <td style="font-weight:600;">${cols.u}</td>
+                <td style="font-weight:600;">${cols.r}</td>
+                <td style="font-weight:600;">${cols.fr1}</td>
+                <td style="font-weight:600;">${cols.fr0}</td>
+                <td style="font-weight:600;">${cols.psif}</td>
+                <td style="font-weight:600;">${cols.nearMiss}</td>
+                <td style="font-weight:600;">${cols.cond}</td>
+                <td style="font-weight:600;">${cols.comp}</td>
+                <td style="color:var(--green-border); font-weight:800;">${cols.metaK}</td>
+                <td style="color:var(--green-border); font-weight:800;">${cols.realK}</td>
+                <td style="font-weight:800; color:var(--cyan-border);">${totalLinha}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    </script>
+</body>
+</html>

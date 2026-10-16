@@ -23,7 +23,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif; /* Fonte nova aplicada a tudo */
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
@@ -68,7 +68,7 @@
         }
         .filter-box:hover { border-color: white; background: rgba(255,255,255,0.05); }
 
-        /* --- ÁREA SUPERIOR --- */
+        /* --- ÁREA SUPERIOR (Mensagem + KPIs) --- */
         .top-container { display: flex; justify-content: space-between; gap: 15px; }
 
         .safety-banner {
@@ -120,18 +120,19 @@
             text-transform: uppercase; font-weight: 800; color: #ddd; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        /* --- PIRÂMIDE --- */
+        /* --- PIRÂMIDE REAJUSTADA (PONTUDA E CONTÍNUA) --- */
         .pyramid-section { flex: 0 0 35%; justify-content: flex-start; }
 
         .pyramid-container {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             gap: 2px; flex: 1; position: relative;
-            width: 80%; /* Diminui a largura geral da pirâmide */
-            margin: 0 auto; /* Centraliza a pirâmide na div */
+            width: 75%; /* Mais fina para acentuar a ponta */
+            margin: 0 auto;
         }
 
         .pyramid-level {
-            height: 30px; /* Diminui a altura para deixá-la mais estreita verticalmente */
+            height: 32px;
+            width: 100%; /* Ocupa 100% para o clip-path calcular a reta perfeita */
             display: flex; align-items: center; justify-content: center; gap: 8px;
             color: white; font-size: 11px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
             transition: all 0.3s ease; cursor: default; position: relative; z-index: 1;
@@ -140,32 +141,32 @@
         .pyramid-level:hover { transform: scale(1.05); filter: brightness(1.2); z-index: 10; }
 
         .level-text { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
-        .lvl-code { font-weight: 800; font-size: 11px; letter-spacing: 0.5px; }
-        .lvl-desc { font-weight: 600; font-size: 8px; opacity: 0.9; text-transform: uppercase; }
+        .lvl-code { font-weight: 900; font-size: 11px; letter-spacing: 0.5px; }
+        .lvl-desc { font-weight: 600; font-size: 8px; opacity: 0.9; }
 
-        .lvl-1 { background: linear-gradient(90deg, #111 0%, #444 50%, #111 100%); width: 20%; clip-path: polygon(25% 0, 75% 0, 100% 100%, 0% 100%); }
-        .lvl-2 { background: linear-gradient(90deg, #222 0%, #555 50%, #222 100%); width: 30%; clip-path: polygon(18% 0, 82% 0, 100% 100%, 0% 100%); }
-        .lvl-3 { background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%); width: 40%; clip-path: polygon(14% 0, 86% 0, 100% 100%, 0% 100%); }
-        .lvl-4 { background: linear-gradient(90deg, #900 0%, #f00 50%, #900 100%); width: 50%; clip-path: polygon(11% 0, 89% 0, 100% 100%, 0% 100%); }
-        .lvl-5 { background: linear-gradient(90deg, #b50 0%, #f90 50%, #b50 100%); width: 60%; clip-path: polygon(9% 0, 91% 0, 100% 100%, 0% 100%); }
-        .lvl-6 { background: linear-gradient(90deg, #a90 0%, #fe0 50%, #a90 100%); width: 70%; clip-path: polygon(8% 0, 92% 0, 100% 100%, 0% 100%); color: #000; text-shadow: rgba(255,255,255,0.5) 0px 1px 1px; }
-        .lvl-7 { background: linear-gradient(90deg, #059 0%, #0bf 50%, #059 100%); width: 80%; clip-path: polygon(7% 0, 93% 0, 100% 100%, 0% 100%); }
-        .lvl-8 { background: linear-gradient(90deg, #077 0%, #0ff 50%, #077 100%); width: 90%; clip-path: polygon(6% 0, 94% 0, 100% 100%, 0% 100%); color: #000; text-shadow: rgba(255,255,255,0.5) 0px 1px 1px; }
-        .lvl-9 { background: linear-gradient(90deg, #171 0%, #3d3 50%, #171 100%); width: 100%; clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%); color: #000; text-shadow: rgba(255,255,255,0.5) 0px 1px 1px; }
-        .lvl-10{ background: linear-gradient(90deg, #040 0%, #090 50%, #040 100%); width: 100%; clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%); border-radius: 0 0 5px 5px;}
+        /* Cálculo geométrico exato para reta contínua + Cores da nova imagem */
+        .lvl-1 { background: #000000; clip-path: polygon(42% 0, 58% 0, 62.2% 100%, 37.8% 100%); }
+        .lvl-2 { background: #2b2b2b; clip-path: polygon(37.8% 0, 62.2% 0, 66.4% 100%, 33.6% 100%); }
+        .lvl-3 { background: #595959; clip-path: polygon(33.6% 0, 66.4% 0, 70.6% 100%, 29.4% 100%); }
+        .lvl-4 { background: #e68a00; clip-path: polygon(29.4% 0, 70.6% 0, 74.8% 100%, 25.2% 100%); }
+        .lvl-5 { background: #e6e600; clip-path: polygon(25.2% 0, 74.8% 0, 79% 100%, 21% 100%); color: #000; text-shadow: none; }
+        .lvl-6 { background: #e6e699; clip-path: polygon(21% 0, 79% 0, 83.2% 100%, 16.8% 100%); color: #000; text-shadow: none; }
+        .lvl-7 { background: #0055a4; clip-path: polygon(16.8% 0, 83.2% 0, 87.4% 100%, 12.6% 100%); }
+        .lvl-8 { background: #0099e6; clip-path: polygon(12.6% 0, 87.4% 0, 91.6% 100%, 8.4% 100%); }
+        .lvl-9 { background: #73e600; clip-path: polygon(8.4% 0, 91.6% 0, 95.8% 100%, 4.2% 100%); color: #000; text-shadow: none; }
+        .lvl-10{ background: #339933; clip-path: polygon(4.2% 0, 95.8% 0, 100% 100%, 0% 100%); }
 
         /* --- TABELA --- */
         .table-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
         table { 
             width: 100%; 
-            height: 100%; /* Força a tabela a esticar no eixo Y */
+            height: 100%; 
             border-collapse: collapse; font-size: 12px; text-align: center; 
         }
         
-        th, td { border: 1px solid rgba(255,255,255,0.1); padding: 5px; } /* Ajuste no padding para caber bem */
+        th, td { border: 1px solid rgba(255,255,255,0.1); padding: 5px; }
         
-        /* O cabeçalho não deve se esticar muito */
         th { background-color: #353544; font-weight: 600; color: #ddd; height: 1%; }
         th i { display: block; margin-bottom: 5px; font-size: 16px; opacity: 0.8; }
         .th-small { font-size: 9px; color: #999; display: block; margin-top: 2px; font-weight: 400; }
@@ -208,7 +209,7 @@
         </div>
     </header>
 
-    <!-- ÁREA SUPERIOR (Mensagem + KPIs) -->
+    <!-- ÁREA SUPERIOR -->
     <div class="top-container">
         <div class="safety-banner">
             <div>
@@ -248,16 +249,16 @@
                 <i class="fa-solid fa-triangle-exclamation" style="color:var(--cyan-border);"></i> PIRÂMIDE DE SEGURANÇA
             </div>
             <div class="pyramid-container">
-                <div class="pyramid-level lvl-1"><i class="fa-solid fa-skull"></i> <div class="level-text"><span class="lvl-code">FATAL</span></div></div>
+                <div class="pyramid-level lvl-1"><div class="level-text"><span class="lvl-code">G</span><span class="lvl-desc">Fatal</span></div></div>
                 <div class="pyramid-level lvl-2"><div class="level-text"><span class="lvl-code">U</span><span class="lvl-desc">Com sequelas</span></div></div>
                 <div class="pyramid-level lvl-3"><div class="level-text"><span class="lvl-code">R</span><span class="lvl-desc">Sem sequelas</span></div></div>
                 <div class="pyramid-level lvl-4"><div class="level-text"><span class="lvl-code">FR1</span><span class="lvl-desc">Acidente típico</span></div></div>
                 <div class="pyramid-level lvl-5"><div class="level-text"><span class="lvl-code">FR0</span><span class="lvl-desc">Primeiros socorros</span></div></div>
-                <div class="pyramid-level lvl-6"><i class="fa-solid fa-stethoscope"></i> <div class="level-text"><span class="lvl-code">ATEND. AMBULATORIAL</span></div></div>
-                <div class="pyramid-level lvl-7"><i class="fa-solid fa-bell"></i> <div class="level-text"><span class="lvl-code">INCIDENTE / PSIF</span></div></div>
-                <div class="pyramid-level lvl-8"><i class="fa-solid fa-triangle-exclamation"></i> <div class="level-text"><span class="lvl-code">NEAR MISS / PSIF</span></div></div>
-                <div class="pyramid-level lvl-9"><i class="fa-solid fa-gear"></i> <div class="level-text"><span class="lvl-code">CONDIÇÕES INSEGURAS</span></div></div>
-                <div class="pyramid-level lvl-10"><i class="fa-solid fa-user-xmark"></i> <div class="level-text"><span class="lvl-code">COMPORTAMENTOS INSEGUROS</span></div></div>
+                <div class="pyramid-level lvl-6"><div class="level-text"><span class="lvl-code" style="font-size:10px;">ATEND. AMBULATORIAL</span></div></div>
+                <div class="pyramid-level lvl-7"><div class="level-text"><span class="lvl-code">INCIDENTE / PSIF</span></div></div>
+                <div class="pyramid-level lvl-8"><div class="level-text"><span class="lvl-code">NEAR MISS / PSIF</span><span class="lvl-desc">Quase acidente</span></div></div>
+                <div class="pyramid-level lvl-9"><div class="level-text"><span class="lvl-code">CONDIÇÕES INSEGURAS</span></div></div>
+                <div class="pyramid-level lvl-10"><div class="level-text"><span class="lvl-code">COMPORTAMENTOS INSEGUROS</span></div></div>
             </div>
         </div>
 
